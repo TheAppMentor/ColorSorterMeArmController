@@ -28,22 +28,12 @@ var jawServoPos = jawFullClosePos
 moveLimbsToOriginalPosition()
 .then((success) => {
     if (success == true){
-        return openJaw(1)
-    }
-})
-.then((success) => {
-    if (success == true){
-        return closeJaw(1)
-    }
-})
-.then((success) => {
-    if (success == true){
         return openJaw(0.5)
     }
 })
 .then((success) => {
     if (success == true){
-        return closeJaw(0.5)
+        //return closeJaw(1)
     }
 })
 function moveLimbsToOriginalPosition() {
