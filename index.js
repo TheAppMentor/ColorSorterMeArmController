@@ -53,9 +53,8 @@ moveLimbsToOriginalPosition()
 */
 function moveLimbsToOriginalPosition() {
     return new Promise((resolve, reject) => {
-        servoJaw.servoWrite(jawFullClosePos)
-        rotateArmLeft(0.5)
-        resolve(true)
+        //servoJaw.servoWrite(jawFullClosePos)
+        return rotateArmLeft(0.5)
     })
 }
 
@@ -77,12 +76,13 @@ function rotateArmLeft(percent){
         let rotateArmLeftLoop = setInterval(() => {
             console.log(" Func : Rotate Arm Left : From : " +  armRotateServoPos + " To  : "  + finalPulseWidth)
             if (armRotateServoPos <= finalPulseWidth){
+
                 clearInterval(rotateArmLeftLoop) 
                 resolve(true)
             }
 
-            servoRotate.servoWrite(servoRotate);
-            servoRotate -= increment;
+            servoRotate.servoWrite(armRotateServoPos);
+            armRotateServoPos -= increment;
 
         }, 150);
     })
