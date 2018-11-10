@@ -25,40 +25,58 @@ closeJaw(1)
 var jawServoPos = jawFullClosePos 
 
 
+moveLimbsToOriginalPosition()
+.then((success) => {
+    if (success == true){
+        return openJaw(1)
+    }
+})
+
+function moveLimbsToOriginalPosition() {
+    return new Promise((resolve, reject) => {
+        servoJaw.servoWrite(jawFullClosePos)
+        sleep(1.0)
+        resolve(true)
+    })
+}
+
 function closeJaw(percent = 1){
-    console.log("IN Close JAwe function")   
-    var finalPulseWidth = jawFullClosePos * percent 
+    return new Promise((resolve, reject) => {
 
-    var closeJawLoop = setInterval(() => {
+        var finalPulseWidth = jawFullClosePos * percent 
 
-        console.log("In Set interval")
-        if (jawServoPos >= jawFullClosePos){
-        console.log("Returning ")
-          clearInterval(closeJawLoop) 
-        }
+        var closeJawLoop = setInterval(() => {
 
-        servoJaw.servoWrite(jawServoPos);
-        jawServoPos += increment;
-    
-    }, 150);
+            console.log("In Set interval")
+            if (jawServoPos >= jawFullClosePos){
+                clearInterval(closeJawLoop) 
+                resolve(true)
+            }
+
+            servoJaw.servoWrite(jawServoPos);
+            jawServoPos += increment;
+
+        }, 150);
+    })
 }
 
 function openJaw(percent = 1){
-    
-    console.log("IN Open Jaw function")   
+    return new Promise((resolve, reject) => {
 
-    var finalPulseWidth = jawFullOpenPos * percent 
+        var finalPulseWidth = jawFullOpenPos * percent 
 
-    var openJawLoop = setInterval(() => {
+        var openJawLoop = setInterval(() => {
 
-        console.log("In Set interval")
-        if (jawServoPos <= jawFullOpenPos){
-        console.log("Returning ")
-          clearInterval(openJawLoop) 
-        }
+            console.log("In Set interval")
+            if (jawServoPos <= jawFullOpenPos){
+                console.log("Returning ")
+                clearInterval(openJawLoop) 
+                resolve(true)
+            }
 
-        servoJaw.servoWrite(jawServoPos);
-        jawServoPos -= increment;
-    
-    }, 150);
+            servoJaw.servoWrite(jawServoPos);
+            jawServoPos -= increment;
+
+        }, 150);
+    })
 }
