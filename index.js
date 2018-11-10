@@ -19,11 +19,7 @@ let armFullRotateRight = 1500
 
 let increment = 50;
 
-closeJaw(1)
-//openJaw(1)
-
 var jawServoPos = jawFullClosePos 
-
 
 moveLimbsToOriginalPosition()
 .then((success) => {
@@ -33,9 +29,15 @@ moveLimbsToOriginalPosition()
 })
 .then((success) => {
     if (success == true){
-        //return closeJaw(1)
+        return closeJaw(0.5)
     }
 })
+.then((success) => {
+    if (success == true){
+        return openJaw(1)
+    }
+})
+
 function moveLimbsToOriginalPosition() {
     return new Promise((resolve, reject) => {
         servoJaw.servoWrite(jawFullClosePos)
