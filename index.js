@@ -75,15 +75,14 @@ function rotateArmLeft(percent){
         var finalPulseWidth = (armFullRotateRight - ((armFullRotateLeft - armFullRotateLeft ) * percent))
 
         let rotateArmLeftLoop = setInterval(() => {
-
-            console.log(" Func : Close Jaw : From : " +  armRotateServoPos + " To  : "  + finalPulseWidth)
-            if (armRotateServoPos >= finalPulseWidth){
+            console.log(" Func : Rotate Arm Left : From : " +  armRotateServoPos + " To  : "  + finalPulseWidth)
+            if (armRotateServoPos <= finalPulseWidth){
                 clearInterval(rotateArmLeftLoop) 
                 resolve(true)
             }
 
             servoRotate.servoWrite(servoRotate);
-            servoRotate += increment;
+            servoRotate -= increment;
 
         }, 150);
     })
