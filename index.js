@@ -31,11 +31,24 @@ moveLimbsToOriginalPosition()
         return openJaw(1)
     }
 })
-
+.then((success) => {
+    if (success == true){
+        return closeJaw(1)
+    }
+})
+.then((success) => {
+    if (success == true){
+        return openJaw(0.5)
+    }
+})
+.then((success) => {
+    if (success == true){
+        return closeJaw(0.5)
+    }
+})
 function moveLimbsToOriginalPosition() {
     return new Promise((resolve, reject) => {
         servoJaw.servoWrite(jawFullClosePos)
-        sleep(1.0)
         resolve(true)
     })
 }
