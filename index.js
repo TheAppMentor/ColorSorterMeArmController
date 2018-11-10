@@ -52,11 +52,12 @@ function moveLimbsToOriginalPosition() {
 function closeJaw(percent){
     return new Promise((resolve, reject) => {
 
+        console.log("============ Close Jaw ======================")
         var finalPulseWidth = (jawFullClosePos - ((jawFullClosePos - jawFullOpenPos) * percent))
 
-        var closeJawLoop = setInterval(() => {
+        let closeJawLoop = setInterval(() => {
 
-            console.log("In Set interval")
+            console.log(" Func : Close Jaw : From : " +  jawServoPos + " To  : "  + finalPulseWidth)
             if (jawServoPos >= finalPulseWidth){
                 clearInterval(closeJawLoop) 
                 resolve(true)
@@ -72,16 +73,14 @@ function closeJaw(percent){
 function openJaw(percent){
     return new Promise((resolve, reject) => {
     
-        var correctedPercent = 1 + percent 
-        if (percent == 1) {
-            correctedPrecent = percent
-        }
+        console.log("============ Open Jaw ======================")
+        var correctedPercent = 1 + (1 - percent) 
 
         var finalPulseWidth = jawFullOpenPos * correctedPercent 
 
-        var openJawLoop = setInterval(() => {
+        let openJawLoop = setInterval(() => {
 
-            console.log("In Set interval")
+            console.log(" Func : Open Jaw : From : " +  jawServoPos + " To  : "  + finalPulseWidth)
             if (jawServoPos <= finalPulseWidth){
                 console.log("Returning ")
                 clearInterval(openJawLoop) 
