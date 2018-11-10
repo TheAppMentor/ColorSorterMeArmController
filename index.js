@@ -60,7 +60,8 @@ function moveLimbsToOriginalPosition() {
     return new Promise((resolve, reject) => {
        console.log("Moving Limbs....  ") 
         //servoJaw.servoWrite(jawFullClosePos)
-        return rotateArmLeft(0.5)
+        rotateArmLeft(0.5)
+        resolve(true)
     })
 }
 
