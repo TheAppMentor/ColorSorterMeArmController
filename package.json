@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.5.3",
     "johnny-five": "^1.0.0",
     "raspi-io": "^9.0.0"
   }
