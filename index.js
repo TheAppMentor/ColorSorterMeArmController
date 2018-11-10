@@ -25,7 +25,12 @@ var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotate
 
 
 moveLimbsToOriginalPosition()
-
+    .then((success) => {
+        console.log("\n\n ========== Open Jaw 0.5")
+        if (success == true){
+            return rotateArmLeft(1)
+        }
+    })
     /*
     .then((success) => {
     console.log("\n\n ========== Open Jaw 0.5")
@@ -71,14 +76,14 @@ function rotateArmLeft(percent){
 
         let rotateArmLeftLoop = setInterval(() => {
 
-            console.log(" Func : Close Jaw : From : " +  jawServoPos + " To  : "  + finalPulseWidth)
-            if (jawServoPos >= finalPulseWidth){
+            console.log(" Func : Close Jaw : From : " +  armRotateServoPos + " To  : "  + finalPulseWidth)
+            if (armRotateServoPos >= finalPulseWidth){
                 clearInterval(rotateArmLeftLoop) 
                 resolve(true)
             }
 
-            servoJaw.servoWrite(jawServoPos);
-            jawServoPos += increment;
+            servoRotate.servoWrite(servoRotate);
+            servoRotate += increment;
 
         }, 150);
     })
