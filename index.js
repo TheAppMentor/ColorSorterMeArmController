@@ -31,6 +31,12 @@ moveLimbsToOriginalPosition()
             return rotateArmLeft(1)
         }
     })
+    .then((success) => {
+        console.log("\n\n ========== Open Jaw 0.5")
+        if (success == true){
+            return rotateArmRight(1)
+        }
+    })
     /*
     .then((success) => {
     console.log("\n\n ========== Open Jaw 0.5")
@@ -59,8 +65,6 @@ function moveLimbsToOriginalPosition() {
 }
 
 
-
-
 // ======================== Base Rotate Helper Functions ==================== //
 
 //let armFullRotateLeft = 2500
@@ -71,7 +75,9 @@ function rotateArmLeft(percent){
     return new Promise((resolve, reject) => {
 
         console.log("============ Rotate Arm Left ======================")
-        var finalPulseWidth = (armFullRotateRight - ((armFullRotateLeft - armFullRotateLeft ) * percent))
+        var correctedPercent = 1 - (1 - percent) 
+
+        var finalPulseWidth = armFullRotateLeft - ((armFullRotateLeft - armFullRotateRight) * correctedPercent) 
 
         let rotateArmLeftLoop = setInterval(() => {
             console.log(" Func : Rotate Arm Left : From : " +  armRotateServoPos + " To  : "  + finalPulseWidth)
@@ -89,6 +95,29 @@ function rotateArmLeft(percent){
 }
 
 
+//let armFullRotateLeft = 2500
+//let armFullRotateRight = 1500
+function rotateArmRight(percent){
+
+    return new Promise((resolve, reject) => {
+
+        console.log("============ Rotate Arm Right ======================")
+        var finalPulseWidth = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight) * (1 - percent)) 
+
+        let rotateArmLeftLoop = setInterval(() => {
+            console.log(" Func : Rotate Arm Right : From : " +  armRotateServoPos + " To  : "  + finalPulseWidth)
+            if (armRotateServoPos <= finalPulseWidth){
+
+                clearInterval(rotateArmLeftLoop) 
+                resolve(true)
+            }
+
+            servoRotate.servoWrite(armRotateServoPos);
+            armRotateServoPos += increment;
+
+        }, 150);
+    })
+}
 
 // ======================== JAW Helper Functions ==================== //
 
