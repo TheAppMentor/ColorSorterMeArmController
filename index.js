@@ -43,10 +43,14 @@ function moveLimbsToOriginalPosition() {
     })
 }
 
+
+//let jawFullOpenPos = 800
+//let jawFullClosePos = 1600
+
 function closeJaw(percent){
     return new Promise((resolve, reject) => {
 
-        var finalPulseWidth = jawFullClosePos * percent 
+        var finalPulseWidth = (jawFullClosePos - ((jawFullClosePos - jawFullOpenPos) * percent))
 
         var closeJawLoop = setInterval(() => {
 
@@ -65,8 +69,13 @@ function closeJaw(percent){
 
 function openJaw(percent){
     return new Promise((resolve, reject) => {
+    
+        var correctedPercent = 1 + percent 
+        if (percent == 1) {
+            correctedPrecent = percent
+        }
 
-        var finalPulseWidth = jawFullOpenPos * percent 
+        var finalPulseWidth = jawFullOpenPos * correctedPercent 
 
         var openJawLoop = setInterval(() => {
 
