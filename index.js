@@ -54,7 +54,7 @@ moveLimbsToOriginalPosition()
 function moveLimbsToOriginalPosition() {
     return new Promise((resolve, reject) => {
         servoJaw.servoWrite(jawFullClosePos)
-        servoRotate.servoWrite(armRotateServoPos)
+        rotatArmLeft(0.5)
         resolve(true)
     })
 }
