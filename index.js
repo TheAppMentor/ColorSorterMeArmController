@@ -23,8 +23,11 @@ let increment = 50;
 var jawServoPos = jawFullClosePos 
 var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight)/2.0)
 
+
 moveLimbsToOriginalPosition()
-.then((success) => {
+
+    /*
+    .then((success) => {
     console.log("\n\n ========== Open Jaw 0.5")
     if (success == true){
         return openJaw(0.5)
@@ -42,7 +45,7 @@ moveLimbsToOriginalPosition()
         return openJaw(1)
     }
 })
-
+*/
 function moveLimbsToOriginalPosition() {
     return new Promise((resolve, reject) => {
         servoJaw.servoWrite(jawFullClosePos)
