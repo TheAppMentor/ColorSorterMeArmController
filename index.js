@@ -3,6 +3,7 @@ const Promise = require('bluebird')
 
 //const servoArmForBack = new Gpio(10, {mode: Gpio.OUTPUT});
 const servoJaw = new Gpio(10, {mode: Gpio.OUTPUT});
+const servoRotate = new Gpio(4, {mode: Gpio.OUTPUT});
 
 
 let jawFullOpenPos = 800
@@ -20,6 +21,7 @@ let armFullRotateRight = 1500
 let increment = 50;
 
 var jawServoPos = jawFullClosePos 
+var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight)/2.0)
 
 moveLimbsToOriginalPosition()
 .then((success) => {
@@ -44,10 +46,44 @@ moveLimbsToOriginalPosition()
 function moveLimbsToOriginalPosition() {
     return new Promise((resolve, reject) => {
         servoJaw.servoWrite(jawFullClosePos)
+        servoRotate.servoWrite(armRotateServoPos)
         resolve(true)
     })
 }
 
+
+
+
+// ======================== Base Rotate Helper Functions ==================== //
+
+//let armFullRotateLeft = 2500
+//let armFullRotateRight = 1500
+
+function rotateArmLeft(percent){
+
+    return new Promise((resolve, reject) => {
+
+        console.log("============ Rotate Arm Left ======================")
+        var finalPulseWidth = (armFullRotateRight - ((armFullRotateLeft - armFullRotateLeft ) * percent))
+
+        let rotateArmLeftLoop = setInterval(() => {
+
+            console.log(" Func : Close Jaw : From : " +  jawServoPos + " To  : "  + finalPulseWidth)
+            if (jawServoPos >= finalPulseWidth){
+                clearInterval(rotateArmLeftLoop) 
+                resolve(true)
+            }
+
+            servoJaw.servoWrite(jawServoPos);
+            jawServoPos += increment;
+
+        }, 150);
+    })
+}
+
+
+
+// ======================== JAW Helper Functions ==================== //
 
 //let jawFullOpenPos = 800
 //let jawFullClosePos = 1600
