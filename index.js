@@ -29,6 +29,19 @@ var armLiftLowerServoPos = armFullLift
 
 moveLimbsToOriginalPosition()
     .then((success) => {
+        console.log("\n\n ========== Lower Arm Down 100 % ")
+        if (success == true){
+            return lowerArmDown(100)
+        }
+    })
+    .then((success) => {
+        console.log("\n\n ========== Lift Arm Up 100 % ")
+        if (success == true){
+            return liftArmUp(100)
+        }
+    })
+/*
+    .then((success) => {
         console.log("\n\n ========== Extend Arm Forward 100 %")
         if (success == true){
             return extendArmForward(100)
@@ -53,54 +66,53 @@ moveLimbsToOriginalPosition()
         }
     })
     .then((success) => {
-    console.log("\n\n ========== Rotate Arm Left 50 % ")
-    if (success == true){
-        return rotateArmLeft(50)
-    }
-})
-    .then((success) => {
-    console.log("\n\n ========== Rotate Arm Left 100 % ")
-    if (success == true){
-        return rotateArmLeft(100)
-    }
-})
-.then((success) => {
-    console.log("\n\n ========== Rotate Arm Right 100 % ")
-    if (success == true){
-        return rotateArmRight(100)
-    }
-})
-.then((success) => {
-    console.log("\n\n ========== Lower Arm Down 100 % ")
-    if (success == true){
-        return lowerArmDown(100)
-    }
-})
-.then((success) => {
-    console.log("\n\n ========== Lift Arm Up 100 % ")
-    if (success == true){
-        return liftArmUp(100)
-    }
-})
-/*
-    .then((success) => {
-    console.log("\n\n ========== Open Jaw 1.0")
-    if (success == true){
-        return openJaw(1)
-    }
-})
-*/
-function moveLimbsToOriginalPosition() {
-    return new Promise((resolve, reject) => {
-       console.log("Moving Limbs....  ") 
-        //servoJaw.servoWrite(jawFullClosePos)
-        closeJaw(100)
-        rotateArmLeft(50)
-        retractArmBack(100)
-        liftArmUp(100)
-        resolve(true)
+        console.log("\n\n ========== Rotate Arm Left 50 % ")
+        if (success == true){
+            return rotateArmLeft(50)
+        }
     })
-}
+    .then((success) => {
+        console.log("\n\n ========== Rotate Arm Left 100 % ")
+        if (success == true){
+            return rotateArmLeft(100)
+        }
+    })
+    .then((success) => {
+        console.log("\n\n ========== Rotate Arm Right 100 % ")
+        if (success == true){
+            return rotateArmRight(100)
+        }
+    })
+    .then((success) => {
+        console.log("\n\n ========== Lower Arm Down 100 % ")
+        if (success == true){
+            return lowerArmDown(100)
+        }
+    })
+    .then((success) => {
+        console.log("\n\n ========== Lift Arm Up 100 % ")
+        if (success == true){
+            return liftArmUp(100)
+        }
+    })
+    .then((success) => {
+        console.log("\n\n ========== Open Jaw 1.0")
+        if (success == true){
+            return openJaw(1)
+        }
+    })
+    */
+    function moveLimbsToOriginalPosition() {
+        return new Promise((resolve, reject) => {
+            console.log("Moving Limbs....  ") 
+            //servoJaw.servoWrite(jawFullClosePos)
+ //           closeJaw(100)
+ //           rotateArmLeft(50)
+ //           retractArmBack(100)
+            liftArmUp(100)
+            resolve(true)
+        })
+    }
 
 
 
