@@ -116,6 +116,9 @@ function extendArmForward(percent){
             console.log(" Func : Extend Arm Forward : From : " +  armExtendRetractServoPos + " To  : "  + finalPulseWidth)
             if (armExtendRetractServoPos >= finalPulseWidth){
                 clearInterval(extendArmForwardLoop) 
+                if (armExtendRetractServoPos > armFullFoward){   // Prashanth : This could cuase some somlbem. am just amking sure the arm is correctly postioned.
+                   armExtendRetractServoPos = armFullForward 
+                } 
                 console.log(" >>>>>>>>>> Returning : armExtendRetractServoPos : " + armExtendRetractServoPos + "finalPulseWidth : " + finalPulseWidth)
                 resolve(true)
             }
