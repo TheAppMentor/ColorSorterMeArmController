@@ -10,7 +10,7 @@ const servoExtendArm = new Gpio(17, {mode: Gpio.OUTPUT});
 let jawFullOpenPos = 800
 let jawFullClosePos = 1600
 
-let armFullForward = 2500
+let armFullForward = 2300
 let armFullRetract = 1800
 
 let armFullLower = 2500
