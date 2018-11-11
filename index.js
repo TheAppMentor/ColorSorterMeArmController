@@ -36,20 +36,20 @@ moveLimbsToOriginalPosition()
             return closeJaw(100)
         }
     })
-    /*
     .then((success) => {
-    console.log("\n\n ========== Open Jaw 0.5")
+    console.log("\n\n ========== Rotate Arm Left 50 % ")
     if (success == true){
-        return openJaw(0.5)
+        return rotateArmLeft(50)
     }
 })
 .then((success) => {
-    console.log("\n\n ========== Close Jaw 0.5")
+    console.log("\n\n ========== Rotate Arm Right 100 % ")
     if (success == true){
-        return closeJaw(0.5)
+        return rotateArmRight(100)
     }
 })
-.then((success) => {
+/*
+    .then((success) => {
     console.log("\n\n ========== Open Jaw 1.0")
     if (success == true){
         return openJaw(1)
