@@ -12,7 +12,7 @@ let jawFullOpenPos = 800
 let jawFullClosePos = 1600
 
 let armFullForward = 2400
-let armFullRetract = 1500 
+let armFullRetract = 1700 
 
 let armFullLower = 2400
 let armFullLift = 1500  //(the Arm struggles to lift.. need to so something)
