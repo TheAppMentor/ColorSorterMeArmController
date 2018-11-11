@@ -25,7 +25,7 @@ var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotate
 
 moveLimbsToOriginalPosition()
     .then((success) => {
-        console.log("\n\n ========== Rotate Left 1")
+        console.log("\n\n ========== Open Jaw 100")
         if (success == true){
             return openJaw(100)
         }
@@ -176,7 +176,8 @@ function closeJaw(percent){
 function openJaw(percent){
     return new Promise((resolve, reject) => {
     
-        var finalPulseWidth = getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,percent)
+        //var finalPulseWidth = getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,percent)
+        var finalPulseWidth = getPulseWidthForPercentage(jawFullClosePos,jawFullOpenPos,percent)
         
         console.log("============ Open Jaw ======================")
 
