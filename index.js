@@ -60,7 +60,8 @@ function moveLimbsToOriginalPosition() {
     return new Promise((resolve, reject) => {
        console.log("Moving Limbs....  ") 
         //servoJaw.servoWrite(jawFullClosePos)
-        rotateArmLeft(0.5)
+        closeJaw(100)
+        //rotateArmLeft(0.5)
         resolve(true)
     })
 }
@@ -77,7 +78,15 @@ function getPulseWidthForPercentage(startValue, endValue, percent) {
 }
 
 
-
+//let jawFullOpenPos = 800
+//let jawFullClosePos = 1600
+getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,100)
+getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,10)
+getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,25)
+getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,50)
+getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,75)
+getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,90)
+getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,100)
 
 
 
