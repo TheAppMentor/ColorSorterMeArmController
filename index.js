@@ -27,9 +27,35 @@ var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotate
 var armExtendRetractServoPos = armFullRetract
 var armLiftLowerServoPos = armFullLift 
 
-moveLimbsToOriginalPosition()
 
-    
+
+moveLimbsToOriginalPosition()
+ .then((success) => {
+        console.log("\n\n ========== Extend Arm Forward 100 %")
+        if (success == true){
+            return openJaw(100)
+        }
+    })
+ .then((success) => {
+        console.log("\n\n ========== Extend Arm Forward 100 %")
+        if (success == true){
+            return extendArmForward(100)
+        }
+    })
+ .then((success) => {
+        console.log("\n\n ========== Extend Arm Forward 100 %")
+        if (success == true){
+            return closeJaw(75)
+        }
+    })
+    .then((success) => {
+        console.log("\n\n ========== Retract Arm Back 100 %")
+        if (success == true){
+            return retractArmBack(100)
+        }
+    })
+
+
 /*
     .then((success) => {
         console.log("\n\n ========== Lower Arm Down 100 % ")
@@ -43,7 +69,6 @@ moveLimbsToOriginalPosition()
             return liftArmUp(100)
         }
     })
- */
  .then((success) => {
         console.log("\n\n ========== Extend Arm Forward 100 %")
         if (success == true){
@@ -98,7 +123,7 @@ moveLimbsToOriginalPosition()
             return closeJaw(100)
         }
     })
-    
+ */   
 
 function moveLimbsToOriginalPosition() {
         return new Promise((resolve, reject) => {
@@ -349,7 +374,6 @@ function closeJaw(percent){
 
 function openJaw(percent){
     return new Promise((resolve, reject) => {
-    
         var finalPulseWidth = getPulseWidthForPercentage(jawFullClosePos,jawFullOpenPos,percent)
         
         console.log("============ Open Jaw ======================")
