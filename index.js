@@ -5,16 +5,17 @@ const Promise = require('bluebird')
 const servoJaw = new Gpio(10, {mode: Gpio.OUTPUT});
 const servoRotate = new Gpio(4, {mode: Gpio.OUTPUT});
 const servoExtendArm = new Gpio(17, {mode: Gpio.OUTPUT});
+const servoLiftLowerArm = new Gpio(27, {mode: Gpio.OUTPUT});
 
 
 let jawFullOpenPos = 800
 let jawFullClosePos = 1600
 
-let armFullForward = 2300
+let armFullForward = 2400
 let armFullRetract = 1800
 
-let armFullLower = 2500
-let armFullLift = 2000  //(the Arm struggles to lift.. need to so something)
+let armFullLower = 2400
+let armFullLift = 1500  //(the Arm struggles to lift.. need to so something)
 
 let armFullRotateLeft = 2200
 let armFullRotateRight = 800
@@ -24,6 +25,7 @@ let increment = 50;
 var jawServoPos = jawFullClosePos 
 var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight)/2.0)
 var armExtendRetractServoPos = armFullRetract
+var armLiftLowerServoPos = armFullLift 
 
 moveLimbsToOriginalPosition()
     .then((success) => {
@@ -68,6 +70,18 @@ moveLimbsToOriginalPosition()
         return rotateArmRight(100)
     }
 })
+.then((success) => {
+    console.log("\n\n ========== Lower Arm Down 100 % ")
+    if (success == true){
+        return lowerArmDown(100)
+    }
+})
+.then((success) => {
+    console.log("\n\n ========== Lift Arm Up 100 % ")
+    if (success == true){
+        return liftArmUp(100)
+    }
+})
 /*
     .then((success) => {
     console.log("\n\n ========== Open Jaw 1.0")
@@ -83,6 +97,7 @@ function moveLimbsToOriginalPosition() {
         closeJaw(100)
         rotateArmLeft(50)
         retractArmBack(100)
+        liftArmUp(100)
         resolve(true)
     })
 }
@@ -97,6 +112,62 @@ function getPulseWidthForPercentage(startValue, endValue, percent) {
     console.log("Start : " + startValue +  "End Value : " + endValue + " Percent : " + percent + "Final Value : " + val)
     return val 
 }
+
+
+
+//armFullLower = 2500
+//armFullLift = 1500  //(the Arm struggles to lift.. need to so something)
+
+// ======================== Arm Lift & Lower Helper Functions ==================== //
+
+function liftArmUp(percent){
+
+    return new Promise((resolve, reject) => {
+
+        var finalPulseWidth = getPulseWidthForPercentage(armFullLower,armFullLift,percent)
+        console.log("============ Lift Arm Up ======================")
+
+        let liftArmUpLoop = setInterval(() => {
+            console.log(" Func : Lift Arm Up : From : " +  armLiftLowerServoPos + " To  : "  + finalPulseWidth)
+            if (armLiftLowerServoPos >= finalPulseWidth){
+                clearInterval(liftArmUpLoop) 
+                
+                console.log(" >>>>>>>>>> Returning : armLiftLowerServoPos : " + armLiftLowerServoPos + "finalPulseWidth : " + finalPulseWidth)
+                resolve(true)
+            }
+
+            servoLiftLowerArm.servoWrite(armLiftLowerServoPos);
+            armLiftLowerServoPos -= increment;
+
+        }, 150);
+    })
+}
+
+function lowerArmDown(percent){
+
+    return new Promise((resolve, reject) => {
+
+        var finalPulseWidth = getPulseWidthForPercentage(armFullLift,armFullLower,percent)
+        console.log("============ Lower Arm Down ======================")
+
+        let lowerArmDownLoop = setInterval(() => {
+            console.log(" Func : Lift Arm Up : From : " +  armLiftLowerServoPos + " To  : "  + finalPulseWidth)
+            if (armLiftLowerServoPos <= finalPulseWidth){
+                clearInterval(lowerArmDownLoop) 
+                
+                console.log(" >>>>>>>>>> Returning : armLiftLowerServoPos : " + armLiftLowerServoPos + "finalPulseWidth : " + finalPulseWidth)
+                resolve(true)
+            }
+
+            servoLiftLowerArm.servoWrite(armLiftLowerServoPos);
+            armLiftLowerServoPos += increment;
+
+        }, 150);
+    })
+}
+
+
+
 
 
 
