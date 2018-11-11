@@ -1,10 +1,6 @@
 const Gpio = require('pigpio').Gpio;
 const Promise = require('bluebird')
 
-getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,100)
-getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,50)
-getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,25)
-
 //const servoArmForBack = new Gpio(10, {mode: Gpio.OUTPUT});
 const servoJaw = new Gpio(10, {mode: Gpio.OUTPUT});
 const servoRotate = new Gpio(4, {mode: Gpio.OUTPUT});
@@ -31,13 +27,13 @@ moveLimbsToOriginalPosition()
     .then((success) => {
         console.log("\n\n ========== Rotate Left 1")
         if (success == true){
-            return rotateArmLeft(100)
+            return openJaw(100)
         }
     })
     .then((success) => {
         console.log("\n\n ========== Rotate Right 1")
         if (success == true){
-            return rotateArmRight(100)
+            return closeJaw(100)
         }
     })
     /*
