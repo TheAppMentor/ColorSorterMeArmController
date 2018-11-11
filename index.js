@@ -87,15 +87,15 @@ moveLimbsToOriginalPosition()
         }
     })
     .then((success) => {
-        console.log("\n\n ========== Open Jaw 1.0")
+        console.log("\n\n ========== Open Jaw 100")
         if (success == true){
             return openJaw(100)
         }
     })
     .then((success) => {
-        console.log("\n\n ========== Open Jaw 1.0")
+        console.log("\n\n ========== Open Jaw 100")
         if (success == true){
-            return openJaw(100)
+            return closeJaw(100)
         }
     })
     
