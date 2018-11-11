@@ -28,6 +28,9 @@ var armExtendRetractServoPos = armFullRetract
 var armLiftLowerServoPos = armFullLift 
 
 moveLimbsToOriginalPosition()
+
+    
+/*
     .then((success) => {
         console.log("\n\n ========== Lower Arm Down 100 % ")
         if (success == true){
@@ -40,7 +43,8 @@ moveLimbsToOriginalPosition()
             return liftArmUp(100)
         }
     })
-    .then((success) => {
+ */
+ .then((success) => {
         console.log("\n\n ========== Extend Arm Forward 100 %")
         if (success == true){
             return extendArmForward(100)
@@ -83,21 +87,15 @@ moveLimbsToOriginalPosition()
         }
     })
     .then((success) => {
-        console.log("\n\n ========== Lower Arm Down 100 % ")
+        console.log("\n\n ========== Open Jaw 1.0")
         if (success == true){
-            return lowerArmDown(100)
-        }
-    })
-    .then((success) => {
-        console.log("\n\n ========== Lift Arm Up 100 % ")
-        if (success == true){
-            return liftArmUp(100)
+            return openJaw(100)
         }
     })
     .then((success) => {
         console.log("\n\n ========== Open Jaw 1.0")
         if (success == true){
-            return openJaw(1)
+            return openJaw(100)
         }
     })
     
@@ -110,7 +108,7 @@ function moveLimbsToOriginalPosition() {
  //           rotateArmLeft(50)
  //           retractArmBack(100)
             //liftArmUp(100)
-            lowerArmDown(100)
+//            lowerArmDown(100)
             resolve(true)
         })
     }
