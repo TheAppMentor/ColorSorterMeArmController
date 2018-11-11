@@ -56,7 +56,31 @@ moveLimbsToOriginalPosition()
     .then((success) => {
         console.log("\n\n ========== Retract Arm Back 100 %")
         if (success == true){
-            return rotateArmLeft(50)
+            return rotateArmLeft(25)
+        }
+    })
+    .then((success) => {
+        console.log("\n\n ========== Retract Arm Back 100 %")
+        if (success == true){
+            return rotateArmRight(25)
+        }
+    })
+    .then((success) => {
+        console.log("\n\n ========== Retract Arm Back 100 %")
+        if (success == true){
+            return rotateArmRight(50)
+        }
+    })
+ .then((success) => {
+        console.log("\n\n ========== Extend Arm Forward 100 %")
+        if (success == true){
+            return extendArmForward(100)
+        }
+    })
+ .then((success) => {
+        console.log("\n\n ========== Extend Arm Forward 100 %")
+        if (success == true){
+            return openJaw(100)
         }
     })
 
