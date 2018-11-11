@@ -80,6 +80,12 @@ moveLimbsToOriginalPosition()
  .then((success) => {
         console.log("\n\n ========== Extend Arm Forward 100 %")
         if (success == true){
+            return extendArmForward(100)
+        }
+    })
+ .then((success) => {
+        console.log("\n\n ========== Extend Arm Forward 100 %")
+        if (success == true){
             return openJaw(100)
         }
     })
