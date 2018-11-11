@@ -4,6 +4,7 @@ const Promise = require('bluebird')
 //const servoArmForBack = new Gpio(10, {mode: Gpio.OUTPUT});
 const servoJaw = new Gpio(10, {mode: Gpio.OUTPUT});
 const servoRotate = new Gpio(4, {mode: Gpio.OUTPUT});
+const servoExtendArm = new Gpio(17, {mode: Gpio.OUTPUT});
 
 
 let jawFullOpenPos = 800
@@ -22,8 +23,21 @@ let increment = 50;
 
 var jawServoPos = jawFullClosePos 
 var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight)/2.0)
+var armExtendRetractServoPos 
 
 moveLimbsToOriginalPosition()
+    .then((success) => {
+        console.log("\n\n ========== Extend Arm Forward 100 %")
+        if (success == true){
+            return extendArmForward(100)
+        }
+    })
+    .then((success) => {
+        console.log("\n\n ========== Retract Arm Back 100 %")
+        if (success == true){
+            return retractArmBack(100)
+        }
+    })
     .then((success) => {
         console.log("\n\n ========== Open Jaw 100 %")
         if (success == true){
@@ -68,6 +82,7 @@ function moveLimbsToOriginalPosition() {
         //servoJaw.servoWrite(jawFullClosePos)
         closeJaw(100)
         rotateArmLeft(50)
+        retractArmBack(100)
         resolve(true)
     })
 }
@@ -84,15 +99,85 @@ function getPulseWidthForPercentage(startValue, endValue, percent) {
 }
 
 
-//let jawFullOpenPos = 800
-//let jawFullClosePos = 1600
-getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,100)
-getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,10)
-getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,25)
-getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,50)
-getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,75)
-getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,90)
-getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,100)
+
+//armFullForward = 2500
+// armFullRetract = 1800
+
+// ======================== Arm Extend Retract Helper Functions ==================== //
+
+function extendArmForward(percent){
+
+    return new Promise((resolve, reject) => {
+
+        var finalPulseWidth = getPulseWidthForPercentage(armFullRetract,armFullForward,percent)
+        console.log("============ Extend Arm Forward ======================")
+
+        let extendArmForwardLoop = setInterval(() => {
+            console.log(" Func : Extend Arm Forward : From : " +  armExtendRetractServoPos + " To  : "  + finalPulseWidth)
+            if (armExtendRetractServoPos >= finalPulseWidth){
+                clearInterval(extendArmForwardLoop) 
+                console.log(" >>>>>>>>>> Returning : armExtendRetractServoPos : " + armExtendRetractServoPos + "finalPulseWidth : " + finalPulseWidth)
+                resolve(true)
+            }
+
+            servoExtendArm.servoWrite(armExtendRetractServoPos);
+            armExtendRetractServoPos += increment;
+
+        }, 150);
+    })
+}
+
+function retractArmBack(percent){
+
+    return new Promise((resolve, reject) => {
+
+        var finalPulseWidth = getPulseWidthForPercentage(armFullForward,armFullRetract,percent)
+        console.log("============ Retract Arm Back ======================")
+
+        let retractArmBackLoop = setInterval(() => {
+            console.log(" Func : Retract Arm Back : From : " +  armExtendRetractServoPos + " To  : "  + finalPulseWidth)
+            if (armExtendRetractServoPos <= finalPulseWidth){
+                clearInterval(retractArmBackLoop) 
+                console.log(" >>>>>>>>>> Returning : armExtendRetractServoPos : " + armExtendRetractServoPos + "finalPulseWidth : " + finalPulseWidth)
+                resolve(true)
+            }
+
+            servoExtendArm.servoWrite(armExtendRetractServoPos);
+            armExtendRetractServoPos -= increment;
+
+        }, 150);
+    })
+}
+
+
+//let armFullRotateLeft = 2500
+//let armFullRotateRight = 1500
+function rotateArmRight(percent){
+
+    return new Promise((resolve, reject) => {
+
+        console.log("============ Rotate Arm Right ======================")
+        var finalPulseWidth = getPulseWidthForPercentage(armFullRotateLeft,armFullRotateRight,percent)
+        //var finalPulseWidth = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight) * (1 - percent)) 
+
+        let rotateArmRightLoop = setInterval(() => {
+            console.log(" Func : Rotate Arm Right : From : " +  armRotateServoPos + " To  : "  + finalPulseWidth)
+            if (armRotateServoPos <= finalPulseWidth){
+                console.log(" >>>>>>>>>> Returning : armRotateServoPos  : " + armRotateServoPos + "finalPulseWidth : " + finalPulseWidth)
+                clearInterval(rotateArmRightLoop) 
+                resolve(true)
+            }
+
+            servoRotate.servoWrite(armRotateServoPos);
+            armRotateServoPos -= increment;
+
+        }, 150);
+    })
+}
+
+
+
+
 
 
 
