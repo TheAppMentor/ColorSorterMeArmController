@@ -43,16 +43,16 @@ moveLimbsToOriginalPosition()
     }
 })
     .then((success) => {
-    console.log("\n\n ========== Rotate Arm Left 50 % ")
+    console.log("\n\n ========== Rotate Arm Left 100 % ")
     if (success == true){
         return rotateArmLeft(100)
     }
 })
 .then((success) => {
-    //console.log("\n\n ========== Rotate Arm Right 100 % ")
-    //if (success == true){
-        //return rotateArmRight(100)
-    //}
+    console.log("\n\n ========== Rotate Arm Right 100 % ")
+    if (success == true){
+        return rotateArmRight(100)
+    }
 })
 /*
     .then((success) => {
