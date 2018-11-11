@@ -40,7 +40,6 @@ moveLimbsToOriginalPosition()
             return liftArmUp(100)
         }
     })
-/*
     .then((success) => {
         console.log("\n\n ========== Extend Arm Forward 100 %")
         if (success == true){
@@ -101,8 +100,9 @@ moveLimbsToOriginalPosition()
             return openJaw(1)
         }
     })
-    */
-    function moveLimbsToOriginalPosition() {
+    
+
+function moveLimbsToOriginalPosition() {
         return new Promise((resolve, reject) => {
             console.log("Moving Limbs....  ") 
             //servoJaw.servoWrite(jawFullClosePos)
