@@ -66,6 +66,14 @@ function moveLimbsToOriginalPosition() {
 }
 
 
+function getPulseWidthForPercentage(startValue, endValue,percentage){
+    //val = ((percent * (max - min) / 100) + min
+    val = ((percent * (endValue - startValue) / 100) + startValue 
+    return val
+}
+
+
+
 // ======================== Base Rotate Helper Functions ==================== //
 
 //let armFullRotateLeft = 2500
