@@ -112,13 +112,13 @@ function rotateArmLeft(percent){
         let rotateArmLeftLoop = setInterval(() => {
             console.log(" Func : Rotate Arm Left : From : " +  armRotateServoPos + " To  : "  + finalPulseWidth)
             if (armRotateServoPos >= finalPulseWidth){
-
                 clearInterval(rotateArmLeftLoop) 
+                console.log(" >>>>>>>>>> Returning : armRotateServoPos  : " + armRotateServoPos + "finalPulseWidth : " + finalPulseWidth)
                 resolve(true)
             }
 
             servoRotate.servoWrite(armRotateServoPos);
-            armRotateServoPos -= increment;
+            armRotateServoPos += increment;
 
         }, 150);
     })
@@ -135,11 +135,11 @@ function rotateArmRight(percent){
         var finalPulseWidth = getPulseWidthForPercentage(armFullRotateLeft,armFullRotateRight,percent)
         //var finalPulseWidth = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight) * (1 - percent)) 
 
-        let rotateArmLeftLoop = setInterval(() => {
+        let rotateArmRightLoop = setInterval(() => {
             console.log(" Func : Rotate Arm Right : From : " +  armRotateServoPos + " To  : "  + finalPulseWidth)
             if (armRotateServoPos <= finalPulseWidth){
-
-                clearInterval(rotateArmLeftLoop) 
+                console.log(" >>>>>>>>>> Returning : armRotateServoPos  : " + armRotateServoPos + "finalPulseWidth : " + finalPulseWidth)
+                clearInterval(rotateArmRightLoop) 
                 resolve(true)
             }
 
