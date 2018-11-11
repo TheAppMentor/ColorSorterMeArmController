@@ -111,7 +111,7 @@ function rotateArmLeft(percent){
 
         let rotateArmLeftLoop = setInterval(() => {
             console.log(" Func : Rotate Arm Left : From : " +  armRotateServoPos + " To  : "  + finalPulseWidth)
-            if (armRotateServoPos <= finalPulseWidth){
+            if (armRotateServoPos >= finalPulseWidth){
 
                 clearInterval(rotateArmLeftLoop) 
                 resolve(true)
