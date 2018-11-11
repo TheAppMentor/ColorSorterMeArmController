@@ -68,7 +68,7 @@ moveLimbsToOriginalPosition()
  .then((success) => {
         console.log("\n\n ========== Extend Arm Forward 100 %")
         if (success == true){
-            return extendArmBack(100)
+            return retractArmBack(100)
         }
     })
     .then((success) => {
