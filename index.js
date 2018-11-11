@@ -25,13 +25,13 @@ var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotate
 
 moveLimbsToOriginalPosition()
     .then((success) => {
-        console.log("\n\n ========== Open Jaw 100")
+        console.log("\n\n ========== Open Jaw 100 %")
         if (success == true){
             return openJaw(100)
         }
     })
     .then((success) => {
-        console.log("\n\n ========== Rotate Right 1")
+        console.log("\n\n ========== Close Jaw 100 %")
         if (success == true){
             return closeJaw(100)
         }
@@ -61,7 +61,7 @@ function moveLimbsToOriginalPosition() {
        console.log("Moving Limbs....  ") 
         //servoJaw.servoWrite(jawFullClosePos)
         closeJaw(100)
-        //rotateArmLeft(0.5)
+        rotateArmLeft(50)
         resolve(true)
     })
 }
