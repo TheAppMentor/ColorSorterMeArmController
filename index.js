@@ -23,10 +23,10 @@ let armFullRotateRight = 800
 let increment = 50;
 
 var jawServoPos = jawFullClosePos 
-var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight)/2.0)
+//var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight)/2.0)
+var armRotateServoPos = armFullRotateRight 
 var armExtendRetractServoPos = armFullRetract
 var armLiftLowerServoPos = armFullLower 
-
 
 moveLimbsToOriginalPosition()
  .then((success) => {
@@ -51,6 +51,12 @@ moveLimbsToOriginalPosition()
         console.log("\n\n ========== Retract Arm Back 100 %")
         if (success == true){
             return retractArmBack(100)
+        }
+    })
+    .then((success) => {
+        console.log("\n\n ========== Retract Arm Back 100 %")
+        if (success == true){
+            return rotateArmLeft(50)
         }
     })
 
