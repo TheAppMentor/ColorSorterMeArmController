@@ -25,7 +25,7 @@ let increment = 10;
 var jawServoPos = jawFullClosePos 
 var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight)/2.0)
 var armExtendRetractServoPos = armFullRetract
-var armLiftLowerServoPos = armFullLift 
+var armLiftLowerServoPos = armFullLower 
 
 
 moveLimbsToOriginalPosition()
