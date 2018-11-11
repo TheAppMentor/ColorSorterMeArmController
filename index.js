@@ -1,6 +1,10 @@
 const Gpio = require('pigpio').Gpio;
 const Promise = require('bluebird')
 
+getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,100)
+getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,50)
+getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,25)
+
 //const servoArmForBack = new Gpio(10, {mode: Gpio.OUTPUT});
 const servoJaw = new Gpio(10, {mode: Gpio.OUTPUT});
 const servoRotate = new Gpio(4, {mode: Gpio.OUTPUT});
@@ -27,13 +31,13 @@ moveLimbsToOriginalPosition()
     .then((success) => {
         console.log("\n\n ========== Rotate Left 1")
         if (success == true){
-            return rotateArmLeft(1)
+            return rotateArmLeft(100)
         }
     })
     .then((success) => {
         console.log("\n\n ========== Rotate Right 1")
         if (success == true){
-            return rotateArmRight(1)
+            return rotateArmRight(100)
         }
     })
     /*
@@ -66,11 +70,19 @@ function moveLimbsToOriginalPosition() {
 }
 
 
-function getPulseWidthForPercentage(startValue, endValue,percentage){
-    //val = ((percent * (max - min) / 100) + min
-    val = ((percent * (endValue - startValue) / 100) + startValue 
-    return val
+
+
+
+//val = ((percent * (max - min) / 100) + min
+function getPulseWidthForPercentage(startValue, endValue, percent) {
+    var val = ((percent * (endValue - startValue) / 100)) + startValue; 
+    console.log("Start : " + startValue +  "End Value : " + endValue + " Percent : " + percent + "Final Value : " + val)
+    return val 
 }
+
+
+
+
 
 
 
@@ -137,7 +149,9 @@ function closeJaw(percent){
     return new Promise((resolve, reject) => {
 
         console.log("============ Close Jaw ======================")
-        var finalPulseWidth = (jawFullClosePos - ((jawFullClosePos - jawFullOpenPos) * percent))
+        var finalPulseWidth = getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,percent)
+        
+        //var finalPulseWidth = (jawFullClosePos - ((jawFullClosePos - jawFullOpenPos) * percent))
 
         let closeJawLoop = setInterval(() => {
 
@@ -157,10 +171,9 @@ function closeJaw(percent){
 function openJaw(percent){
     return new Promise((resolve, reject) => {
     
+        var finalPulseWidth = getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,percent)
+        
         console.log("============ Open Jaw ======================")
-        var correctedPercent = 1 + (1 - percent) 
-
-        var finalPulseWidth = jawFullOpenPos * correctedPercent 
 
         let openJawLoop = setInterval(() => {
 
