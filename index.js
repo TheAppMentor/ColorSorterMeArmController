@@ -42,6 +42,12 @@ moveLimbsToOriginalPosition()
         return rotateArmLeft(50)
     }
 })
+    .then((success) => {
+    console.log("\n\n ========== Rotate Arm Left 50 % ")
+    if (success == true){
+        return rotateArmLeft(100)
+    }
+})
 .then((success) => {
     //console.log("\n\n ========== Rotate Arm Right 100 % ")
     //if (success == true){
