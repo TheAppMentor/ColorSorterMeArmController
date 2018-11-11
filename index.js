@@ -45,7 +45,7 @@ moveLimbsToOriginalPosition()
  .then((success) => {
         console.log("\n\n ========== Extend Arm Forward 100 %")
         if (success == true){
-            return closeJaw(75)
+            return closeJaw(100)
         }
     })
     .then((success) => {
