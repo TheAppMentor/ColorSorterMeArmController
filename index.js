@@ -100,10 +100,8 @@ function rotateArmLeft(percent){
 
     return new Promise((resolve, reject) => {
 
+        var finalPulseWidth = getPulseWidthForPercentage(armFullRotateRight,armFullRotateLeft,percent)
         console.log("============ Rotate Arm Left ======================")
-        var correctedPercent = 1 - (1 - percent) 
-
-        var finalPulseWidth = armFullRotateLeft - ((armFullRotateLeft - armFullRotateRight) * correctedPercent) 
 
         let rotateArmLeftLoop = setInterval(() => {
             console.log(" Func : Rotate Arm Left : From : " +  armRotateServoPos + " To  : "  + finalPulseWidth)
@@ -128,7 +126,8 @@ function rotateArmRight(percent){
     return new Promise((resolve, reject) => {
 
         console.log("============ Rotate Arm Right ======================")
-        var finalPulseWidth = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight) * (1 - percent)) 
+        var finalPulseWidth = getPulseWidthForPercentage(armFullRotateLeft,armFullRotateRight,percent)
+        //var finalPulseWidth = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight) * (1 - percent)) 
 
         let rotateArmLeftLoop = setInterval(() => {
             console.log(" Func : Rotate Arm Right : From : " +  armRotateServoPos + " To  : "  + finalPulseWidth)
@@ -152,7 +151,6 @@ function rotateArmRight(percent){
 
 function closeJaw(percent){
     return new Promise((resolve, reject) => {
-
         console.log("============ Close Jaw ======================")
         var finalPulseWidth = getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,percent)
         
@@ -176,7 +174,6 @@ function closeJaw(percent){
 function openJaw(percent){
     return new Promise((resolve, reject) => {
     
-        //var finalPulseWidth = getPulseWidthForPercentage(jawFullOpenPos,jawFullClosePos,percent)
         var finalPulseWidth = getPulseWidthForPercentage(jawFullClosePos,jawFullOpenPos,percent)
         
         console.log("============ Open Jaw ======================")
