@@ -112,7 +112,7 @@ function rotateArmLeft(percent){
             }
 
             servoRotate.servoWrite(armRotateServoPos);
-            armRotateServoPos -= increment;
+            armRotateServoPos += increment;
 
         }, 150);
     })
@@ -138,7 +138,7 @@ function rotateArmRight(percent){
             }
 
             servoRotate.servoWrite(armRotateServoPos);
-            armRotateServoPos += increment;
+            armRotateServoPos -= increment;
 
         }, 150);
     })
