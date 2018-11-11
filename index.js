@@ -122,13 +122,13 @@ moveLimbsToOriginalPosition()
 //val = ((percent * (max - min) / 100) + min
 function getPulseWidthForPercentage(startValue, endValue, percent) {
     var val = ((percent * (endValue - startValue) / 100)) + startValue; 
-    console.log("Start : " + startValue +  "End Value : " + endValue + " Percent : " + percent + "Final Value : " + val)
+    console.log("Start : " + startValue +  "End Value : " + endValue + " Percent : " + percent + "  Final Value : " + val)
     return val 
 }
 
 
 
-//armFullLower = 2500
+//armFullLower = 2400
 //armFullLift = 1500  //(the Arm struggles to lift.. need to so something)
 
 // ======================== Arm Lift & Lower Helper Functions ==================== //
@@ -142,7 +142,7 @@ function liftArmUp(percent){
 
         let liftArmUpLoop = setInterval(() => {
             console.log(" Func : Lift Arm Up : From : " +  armLiftLowerServoPos + " To  : "  + finalPulseWidth)
-            if (armLiftLowerServoPos >= finalPulseWidth){
+            if (armLiftLowerServoPos <= finalPulseWidth){
                 clearInterval(liftArmUpLoop) 
                 
                 console.log(" >>>>>>>>>> Returning : armLiftLowerServoPos : " + armLiftLowerServoPos + "finalPulseWidth : " + finalPulseWidth)
@@ -164,8 +164,8 @@ function lowerArmDown(percent){
         console.log("============ Lower Arm Down ======================")
 
         let lowerArmDownLoop = setInterval(() => {
-            console.log(" Func : Lift Arm Up : From : " +  armLiftLowerServoPos + " To  : "  + finalPulseWidth)
-            if (armLiftLowerServoPos <= finalPulseWidth){
+            console.log(" Func : Lower Arm Down : From : " +  armLiftLowerServoPos + " To  : "  + finalPulseWidth)
+            if (armLiftLowerServoPos >= finalPulseWidth){
                 clearInterval(lowerArmDownLoop) 
                 
                 console.log(" >>>>>>>>>> Returning : armLiftLowerServoPos : " + armLiftLowerServoPos + "finalPulseWidth : " + finalPulseWidth)
