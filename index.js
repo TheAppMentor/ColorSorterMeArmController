@@ -23,7 +23,7 @@ let increment = 50;
 
 var jawServoPos = jawFullClosePos 
 var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight)/2.0)
-var armExtendRetractServoPos 
+var armExtendRetractServoPos = armFullRetract
 
 moveLimbsToOriginalPosition()
     .then((success) => {
