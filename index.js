@@ -53,13 +53,6 @@ moveLimbsToOriginalPosition()
             return retractArmBack(100)
         }
     })
-    .then((success) => {
-        console.log("\n\n ========== Retract Arm Back 100 %")
-        if (success == true){
-            return liftArmUp(100)
-        }
-    })
-
 
 /*
     .then((success) => {
