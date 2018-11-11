@@ -43,10 +43,10 @@ moveLimbsToOriginalPosition()
     }
 })
 .then((success) => {
-    console.log("\n\n ========== Rotate Arm Right 100 % ")
-    if (success == true){
-        return rotateArmRight(100)
-    }
+    //console.log("\n\n ========== Rotate Arm Right 100 % ")
+    //if (success == true){
+        //return rotateArmRight(100)
+    //}
 })
 /*
     .then((success) => {
@@ -112,7 +112,7 @@ function rotateArmLeft(percent){
             }
 
             servoRotate.servoWrite(armRotateServoPos);
-            armRotateServoPos += increment;
+            armRotateServoPos -= increment;
 
         }, 150);
     })
