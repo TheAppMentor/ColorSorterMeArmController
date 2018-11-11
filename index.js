@@ -15,7 +15,7 @@ let armFullRetract = 1800
 let armFullLower = 2500
 let armFullLift = 2000  //(the Arm struggles to lift.. need to so something)
 
-let armFullRotateLeft = 2500
+let armFullRotateLeft = 2200
 let armFullRotateRight = 1500
 
 let increment = 50;
