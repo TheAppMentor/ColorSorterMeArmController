@@ -67,7 +67,7 @@ moveLimbsToOriginalPosition()
     })
     .then((success) => {
         socket.emit('takePic')
-        return Promise(true)
+        return Promise.resolve(true)
     })
     
     
