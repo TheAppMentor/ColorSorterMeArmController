@@ -20,7 +20,7 @@ let armFullLift = 1500  //(the Arm struggles to lift.. need to so something)
 let armFullRotateLeft = 2200
 let armFullRotateRight = 800
 
-let increment = 50;
+let increment = 100;
 
 var jawServoPos = jawFullClosePos 
 //var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight)/2.0)
