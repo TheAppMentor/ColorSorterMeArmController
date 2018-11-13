@@ -1,3 +1,4 @@
+var socket = require('socket.io-client')('https://light-switch-socket-server.herokuapp.com/');
 const Gpio = require('pigpio').Gpio;
 const Promise = require('bluebird')
 
@@ -6,7 +7,6 @@ const servoJaw = new Gpio(10, {mode: Gpio.OUTPUT});
 const servoRotate = new Gpio(4, {mode: Gpio.OUTPUT});
 const servoExtendArm = new Gpio(17, {mode: Gpio.OUTPUT});
 const servoLiftLowerArm = new Gpio(27, {mode: Gpio.OUTPUT});
-
 
 let jawFullOpenPos = 800
 let jawFullClosePos = 1600
@@ -59,14 +59,22 @@ moveLimbsToOriginalPosition()
             return rotateArmLeft(25)
         }
     })
- .then((success) => {
+    .then((success) => {
         console.log("\n\n ========== Extend Arm Forward 100 %")
         if (success == true){
             return extendArmForward(100)
         }
     })
- .then((success) => {
-        console.log("\n\n ========== Extend Arm Forward 100 %")
+    .then((success) => {
+        socket.emit('takePic')
+        return Promise(true)
+    })
+    
+    
+    
+   /* 
+    .then((success) => {
+        console.log("\n\n ========== Retract Arm Back 100 %")
         if (success == true){
             return retractArmBack(100)
         }
@@ -90,7 +98,6 @@ moveLimbsToOriginalPosition()
         }
     })
 
-/*
     .then((success) => {
         console.log("\n\n ========== Lower Arm Down 100 % ")
         if (success == true){
@@ -427,3 +434,32 @@ function openJaw(percent){
         }, 150);
     })
 }
+
+
+
+
+
+//var socket = require('socket.io-client')('https://light-switch-socket-server.herokuapp.com/');
+
+socket.on('connect', function(){
+    console.log("Raspberry Pi : Connect to Socket Server")
+
+    socket.on('lightsOn', function(data){
+        console.log("Lights ON...")
+    });
+
+    socket.on('lightsOff', function(data){
+        console.log("Lights OFF... ")
+    });
+
+    socket.on('identifiedColor', function(data){
+        console.log("We have the color now ... ")
+    });
+});
+
+socket.on('time', function(data){
+    console.log("WE got an event... ")
+    //socket.emit('takePic')
+});
+
+socket.on('disconnect', function(){console.log("We got disconnectec.. ")});
