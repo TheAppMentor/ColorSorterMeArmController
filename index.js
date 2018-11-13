@@ -448,7 +448,7 @@ function dropInRedBox() {
         .then((success) => {
             console.log("\n\n ========== Retract Arm Back 100 %")
             if (success == true){
-                return extenArmForward(100)
+                return extendArmForward(100)
             }
         })
         .then((success) => {
