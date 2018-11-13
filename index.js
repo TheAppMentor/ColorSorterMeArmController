@@ -457,6 +457,11 @@ socket.on('connect', function(){
     });
 });
 
+socket.on('COLORISRED', function(data){
+    console.log("WE got back a COlor from the iphone : iTS RED!!")
+    socket.emit('takePic')
+});
+
 socket.on('time', function(data){
     console.log("WE got an event... ")
     //socket.emit('takePic')
