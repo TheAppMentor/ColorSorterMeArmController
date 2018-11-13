@@ -436,7 +436,46 @@ function openJaw(percent){
 }
 
 
-
+function dropInRedBox() {
+    
+    retractArmBack(100)
+        .then((success) => {
+            console.log("\n\n ========== Retract Arm Back 100 %")
+            if (success == true){
+                return rotateArmLeft(75)
+            }
+        })
+        .then((success) => {
+            console.log("\n\n ========== Retract Arm Back 100 %")
+            if (success == true){
+                return extenArmForward(100)
+            }
+        })
+        .then((success) => {
+            console.log("\n\n ========== Extend Arm Forward 100 %")
+            if (success == true){
+                return openJaw(100)
+            }
+        })
+        .then((success) => {
+            console.log("\n\n ========== Extend Arm Forward 100 %")
+            if (success == true){
+                return closeJaw(100)
+            }
+        })
+        .then((success) => {
+            console.log("\n\n ========== Extend Arm Forward 100 %")
+            if (success == true){
+                return retractArmBack(100)
+            }
+        })
+        .then((success) => {
+            console.log("\n\n ========== Extend Arm Forward 100 %")
+            if (success == true){
+                return rotateArmRight(100)
+            }
+        })
+}
 
 
 //var socket = require('socket.io-client')('https://light-switch-socket-server.herokuapp.com/');
@@ -459,7 +498,7 @@ socket.on('connect', function(){
 
 socket.on('COLORISRED', function(data){
     console.log("WE got back a COlor from the iphone : iTS RED!!")
-    socket.emit('takePic')
+    dropInRedBox()
 });
 
 socket.on('time', function(data){
