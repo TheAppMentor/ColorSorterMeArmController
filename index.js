@@ -20,7 +20,7 @@ let armFullLift = 1500  //(the Arm struggles to lift.. need to so something)
 let armFullRotateLeft = 2200
 let armFullRotateRight = 800
 
-let increment = 100;
+let increment = 75;
 
 var jawServoPos = jawFullClosePos 
 //var armRotateServoPos = armFullRotateRight + ((armFullRotateLeft - armFullRotateRight)/2.0)
@@ -436,13 +436,23 @@ function openJaw(percent){
 }
 
 
-function dropInRedBox() {
-    
+function dropInBox(color) {
+   
+    var rotateArm = 100
+
+    if (color == "RED"){
+       rotateArm = 50 
+    }
+
+    if (color == "YELLOW"){
+       rotateArm = 75 
+    }
+
     retractArmBack(100)
         .then((success) => {
             console.log("\n\n ========== Retract Arm Back 100 %")
             if (success == true){
-                return rotateArmLeft(75)
+                return rotateArmLeft(rotateArm)
             }
         })
         .then((success) => {
@@ -498,9 +508,13 @@ socket.on('connect', function(){
 
 socket.on('COLORISRED', function(data){
     console.log("WE got back a COlor from the iphone : iTS RED!!")
-    dropInRedBox()
+    dropInBox("RED")
 });
 
+socket.on('COLORISYELLOW', function(data){
+    console.log("WE got back a COlor from the iphone : iTS RED!!")
+    dropInBox("YELLOW")
+});
 socket.on('time', function(data){
     console.log("WE got an event... ")
     //socket.emit('takePic')
