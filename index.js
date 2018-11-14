@@ -510,7 +510,7 @@ function dropInBox(color) {
         .then((success) => {
             console.log("\n\n ========== Start Run Loop again")
             if (success == true){
-                startRunLoop()
+                //startRunLoop()
                 Promise.resolve(true)
             }
         })
