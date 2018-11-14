@@ -42,58 +42,59 @@ const button = new Gpio(23, {
 button.glitchFilter(10000);
  
 button.on('alert', (level, tick) => {
-  if (level === 0) {
-    isRunning = !isRunning
-  }
+    console.log("IS RUNNING : " + isRunning)
+    if (level === 0) {
+        isRunning = !isRunning
+    }
 });
 
-
-while (isRunning == true) {
-    moveLimbsToOriginalPosition()
-        .then((success) => {
-            console.log("\n\n ========== Extend Arm Forward 100 %")
-            if (success == true){
-                return openJaw(100)
-            }
-        })
-        .then((success) => {
-            console.log("\n\n ========== Extend Arm Forward 100 %")
-            if (success == true){
-                return extendArmForward(100)
-            }
-        })
-        .then((success) => {
-            console.log("\n\n ========== Extend Arm Forward 100 %")
-            if (success == true){
-                return closeJaw(100)
-            }
-        })
-        .then((success) => {
-            console.log("\n\n ========== Retract Arm Back 100 %")
-            if (success == true){
-                return retractArmBack(100)
-            }
-        })
-        .then((success) => {
-            console.log("\n\n ========== Retract Arm Back 100 %")
-            if (success == true){
-                return rotateArmLeft(25)
-            }
-        })
-        .then((success) => {
-            console.log("\n\n ========== Extend Arm Forward 100 %")
-            if (success == true){
-                return extendArmForward(100)
-            }
-        })
-        .then((success) => {
-            socket.emit('takePic')
-            return Promise.resolve(true)
-        })
+function startRunLoop(){
+    if (isRunning == true) {
+        moveLimbsToOriginalPosition()
+            .then((success) => {
+                console.log("\n\n ========== Extend Arm Forward 100 %")
+                if (success == true){
+                    return openJaw(100)
+                }
+            })
+            .then((success) => {
+                console.log("\n\n ========== Extend Arm Forward 100 %")
+                if (success == true){
+                    return extendArmForward(100)
+                }
+            })
+            .then((success) => {
+                console.log("\n\n ========== Extend Arm Forward 100 %")
+                if (success == true){
+                    return closeJaw(100)
+                }
+            })
+            .then((success) => {
+                console.log("\n\n ========== Retract Arm Back 100 %")
+                if (success == true){
+                    return retractArmBack(100)
+                }
+            })
+            .then((success) => {
+                console.log("\n\n ========== Retract Arm Back 100 %")
+                if (success == true){
+                    return rotateArmLeft(25)
+                }
+            })
+            .then((success) => {
+                console.log("\n\n ========== Extend Arm Forward 100 %")
+                if (success == true){
+                    return extendArmForward(100)
+                }
+            })
+            .then((success) => {
+                socket.emit('takePic')
+                return Promise.resolve(true)
+            })
+    } 
 } 
-    
-    
-   /* 
+
+/* 
     .then((success) => {
         console.log("\n\n ========== Retract Arm Back 100 %")
         if (success == true){
@@ -513,6 +514,13 @@ function dropInBox(color) {
             console.log("\n\n ========== Extend Arm Forward 100 %")
             if (success == true){
                 return rotateArmRight(100)
+            }
+        })
+        .then((success) => {
+            console.log("\n\n ========== Extend Arm Forward 100 %")
+            if (success == true){
+                startRunLoop()
+                Promise.resolve(true)
             }
         })
 }
