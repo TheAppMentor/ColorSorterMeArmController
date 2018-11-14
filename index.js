@@ -1,5 +1,5 @@
 var socket = require('socket.io-client')('https://light-switch-socket-server.herokuapp.com/');
-const Gpio = require('pigpio').Gpio;
+const Gpio = require('pigpio');
 const Promise = require('bluebird')
 
 //const servoArmForBack = new Gpio(10, {mode: Gpio.OUTPUT});
