@@ -45,7 +45,6 @@ button.on('alert', (level, tick) => {
     console.log("IS RUNNING : " + isRunning)
     if (level === 0) {
         isRunning = !isRunning
-        startRunLoop()
     }
 });
 
@@ -505,25 +504,7 @@ function dropInBox(color) {
             }
         })
         .then((success) => {
-            console.log("\n\n ========== Extend Arm Forward 100 %")
-            if (success == true){
-                return closeJaw(100)
-            }
-        })
-        .then((success) => {
-            console.log("\n\n ========== Extend Arm Forward 100 %")
-            if (success == true){
-                return retractArmBack(100)
-            }
-        })
-        .then((success) => {
-            console.log("\n\n ========== Extend Arm Forward 100 %")
-            if (success == true){
-                return rotateArmRight(100)
-            }
-        })
-        .then((success) => {
-            console.log("\n\n ========== Extend Arm Forward 100 %")
+            console.log("\n\n ========== Start Run Loop again")
             if (success == true){
                 startRunLoop()
                 Promise.resolve(true)
