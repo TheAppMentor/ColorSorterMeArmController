@@ -412,6 +412,7 @@ function rotateArmRight(percent){
             if (armRotateServoPos <= finalPulseWidth){
                 console.log(" >>>>>>>>>> Returning : armRotateServoPos  : " + armRotateServoPos + "finalPulseWidth : " + finalPulseWidth)
                 clearInterval(rotateArmRightLoop) 
+                armRotateServoPos = finalPulseWidth
                 resolve(true)
             }
 
@@ -439,6 +440,7 @@ function closeJaw(percent){
             console.log(" Func : Close Jaw : From : " +  jawServoPos + " To  : "  + finalPulseWidth)
             if (jawServoPos >= finalPulseWidth){
                 clearInterval(closeJawLoop) 
+                jawServoPos = finalPulseWidth
                 resolve(true)
             }
 
