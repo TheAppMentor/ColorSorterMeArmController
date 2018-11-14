@@ -57,6 +57,7 @@ function startRunLoop(){
     if (isRunning == true) {
         moveLimbsToOriginalPosition()
             .then((success) => {
+                console.log(">>>>>>>>>>>>>>>>>> Staring Run <<<<<<<<<<<<<<<<<<<<<<")
                 console.log("\n\n ========== Extend Arm Forward 100 %")
                 if (success == true){
                     return openJaw(100)
@@ -193,26 +194,28 @@ function startRunLoop(){
     })
  */   
 
-function moveLimbsToOriginalPosition() {
-        return new Promise((resolve, reject) => {
-            console.log("Moving Limbs....  ") 
+function moveLimbsToOriginalPosition() : Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        console.log("Moving Limbs....  ") 
 
-            closeJaw(100)
-                .then((success) => {
-                    console.log("\n\n ========== Rotate Arm Right 100 % ")
-                    if (success == true){
-                        return retractArmBack(100)
-                    }
-                })
-                .then((success) => {
-                    console.log("\n\n ========== Rotate Arm Right 100 % ")
-                    if (success == true){
-                        return rotateArmRight(100)
-                    }
-                }).then((success) => {
-                    resolve(success)
-                })
-        })
+        closeJaw(100)
+            .then((success) => {
+                console.log("\n\n ========== Reset to Origin : Retract Arm Back 100 % ")
+                if (success == true){
+                    return retractArmBack(100)
+                }
+                Promise.reject("ERROR KA BACCHA")
+            })
+            .then((success) => {
+                console.log("\n\n ========== Reset to Origin : Rotate Arm Right 100 % ")
+                if (success == true){
+                    return rotateArmRight(100)
+                }
+            }).then((success) => {
+                console.log("\n\n ========== Reset to Origin : Finall Resolving")
+                resolve(success)
+            })
+    })
 }
 
 
@@ -439,6 +442,7 @@ function closeJaw(percent){
             if (jawServoPos >= finalPulseWidth){
                 clearInterval(closeJawLoop) 
                 jawServoPos = finalPulseWidth
+                console.log("Close Jaw resolving...")
                 resolve(true)
             }
 
