@@ -475,9 +475,16 @@ function openJaw(percent){
     })
 }
 
+var isProcessingIphoneInput = false
 
 function dropInBox(color) {
-   
+ 
+    if (isProcessingIphoneInput == true){ return }
+
+    if (isProcessingIphoneInput == false){
+        isProcessingIphoneInput = true
+    }
+
     var rotateArm = 100
 
     if (color == "RED"){
@@ -510,7 +517,9 @@ function dropInBox(color) {
         .then((success) => {
             console.log("\n\n ========== Start Run Loop again")
             if (success == true){
-                //startRunLoop()
+                
+                isProcessingIphoneInput = false 
+                startRunLoop()
                 Promise.resolve(true)
             }
         })
