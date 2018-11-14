@@ -39,7 +39,7 @@ const button = new Gpio(18, {
  
  
 // Level must be stable for 10 ms before an alert event is emitted.
-button.glitchFilter(100);
+button.glitchFilter(10000);
  
 button.on('alert', (level, tick) => {
     console.log("IS RUNNING : " + isRunning)
