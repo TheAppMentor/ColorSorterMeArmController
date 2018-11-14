@@ -29,7 +29,7 @@ var armRotateServoPos = armFullRotateRight
 var armExtendRetractServoPos = armFullRetract
 var armLiftLowerServoPos = armFullLower 
 
-var isRunning = true; 
+var isRunning = false; 
 
 var pushButton = new GpioBut(21, 'in', 'both'); //use GPIO pin 17 as input, and 'both' button presses, and releases should be handled
 
