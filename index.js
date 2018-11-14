@@ -194,7 +194,7 @@ function startRunLoop(){
     })
  */   
 
-function moveLimbsToOriginalPosition() : Promise<boolean> {
+function moveLimbsToOriginalPosition() {
     return new Promise((resolve, reject) => {
         console.log("Moving Limbs....  ") 
 
