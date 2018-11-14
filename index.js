@@ -36,19 +36,23 @@ const button = new Gpio(21, {
   pullUpDown: Gpio.PUD_UP,
   alert: true
 });
- 
- 
-// Level must be stable for 10 ms before an alert event is emitted.
-button.glitchFilter(10000);
- 
-button.on('alert', (level, tick) => {
-    console.log("IS RUNNING : " + isRunning)
-    if (level === 0) {
-        isRunning = !isRunning
-    }
-});
 
-startRunLoop()
+setTimeout(function() { 
+
+    // Level must be stable for 10 ms before an alert event is emitted.
+    button.glitchFilter(10000);
+
+    button.on('alert', (level, tick) => {
+        console.log("IS RUNNING : " + isRunning)
+        if (level === 0) {
+            isRunning = !isRunning
+        }
+    });
+
+    startRunLoop()
+
+}, 5000);
+
 
 function startRunLoop(){
     
