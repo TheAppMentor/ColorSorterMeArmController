@@ -31,7 +31,7 @@ var armLiftLowerServoPos = armFullLower
 var isRunning = false; 
 
 // Set up the ON-OFF button
-const button = new Gpio(40, {
+const button = new Gpio(21, {
   mode: Gpio.INPUT,
   pullUpDown: Gpio.PUD_UP,
   alert: true
