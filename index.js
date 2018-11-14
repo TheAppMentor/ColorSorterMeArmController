@@ -28,48 +28,69 @@ var armRotateServoPos = armFullRotateRight
 var armExtendRetractServoPos = armFullRetract
 var armLiftLowerServoPos = armFullLower 
 
-moveLimbsToOriginalPosition()
- .then((success) => {
-        console.log("\n\n ========== Extend Arm Forward 100 %")
-        if (success == true){
-            return openJaw(100)
-        }
-    })
- .then((success) => {
-        console.log("\n\n ========== Extend Arm Forward 100 %")
-        if (success == true){
-            return extendArmForward(100)
-        }
-    })
- .then((success) => {
-        console.log("\n\n ========== Extend Arm Forward 100 %")
-        if (success == true){
-            return closeJaw(100)
-        }
-    })
-    .then((success) => {
-        console.log("\n\n ========== Retract Arm Back 100 %")
-        if (success == true){
-            return retractArmBack(100)
-        }
-    })
-    .then((success) => {
-        console.log("\n\n ========== Retract Arm Back 100 %")
-        if (success == true){
-            return rotateArmLeft(25)
-        }
-    })
-    .then((success) => {
-        console.log("\n\n ========== Extend Arm Forward 100 %")
-        if (success == true){
-            return extendArmForward(100)
-        }
-    })
-    .then((success) => {
-        socket.emit('takePic')
-        return Promise.resolve(true)
-    })
-    
+var isRunning = false
+
+// Set up the ON-OFF button
+const button = new Gpio(23, {
+  mode: Gpio.INPUT,
+  pullUpDown: Gpio.PUD_UP,
+  alert: true
+});
+ 
+ 
+// Level must be stable for 10 ms before an alert event is emitted.
+button.glitchFilter(10000);
+ 
+button.on('alert', (level, tick) => {
+  if (level === 0) {
+    isRunning = !isRunning
+  }
+});
+
+
+while (isRunning == true) {
+    moveLimbsToOriginalPosition()
+        .then((success) => {
+            console.log("\n\n ========== Extend Arm Forward 100 %")
+            if (success == true){
+                return openJaw(100)
+            }
+        })
+        .then((success) => {
+            console.log("\n\n ========== Extend Arm Forward 100 %")
+            if (success == true){
+                return extendArmForward(100)
+            }
+        })
+        .then((success) => {
+            console.log("\n\n ========== Extend Arm Forward 100 %")
+            if (success == true){
+                return closeJaw(100)
+            }
+        })
+        .then((success) => {
+            console.log("\n\n ========== Retract Arm Back 100 %")
+            if (success == true){
+                return retractArmBack(100)
+            }
+        })
+        .then((success) => {
+            console.log("\n\n ========== Retract Arm Back 100 %")
+            if (success == true){
+                return rotateArmLeft(25)
+            }
+        })
+        .then((success) => {
+            console.log("\n\n ========== Extend Arm Forward 100 %")
+            if (success == true){
+                return extendArmForward(100)
+            }
+        })
+        .then((success) => {
+            socket.emit('takePic')
+            return Promise.resolve(true)
+        })
+} 
     
     
    /* 
@@ -169,15 +190,24 @@ moveLimbsToOriginalPosition()
 function moveLimbsToOriginalPosition() {
         return new Promise((resolve, reject) => {
             console.log("Moving Limbs....  ") 
-            //servoJaw.servoWrite(jawFullClosePos)
- //           closeJaw(100)
- //           rotateArmLeft(50)
- //           retractArmBack(100)
-            //liftArmUp(100)
-//            lowerArmDown(100)
-            resolve(true)
+
+            closeJaw(100)
+                .then((success) => {
+                    console.log("\n\n ========== Rotate Arm Right 100 % ")
+                    if (success == true){
+                        return retractArmBack(100)
+                    }
+                })
+                .then((success) => {
+                    console.log("\n\n ========== Rotate Arm Right 100 % ")
+                    if (success == true){
+                        return rotateArmRight(100)
+                    }
+                }).then((success) => {
+                    resolve(success)
+                })
         })
-    }
+}
 
 
 
