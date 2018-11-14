@@ -28,10 +28,10 @@ var armRotateServoPos = armFullRotateRight
 var armExtendRetractServoPos = armFullRetract
 var armLiftLowerServoPos = armFullLower 
 
-var isRunning = false
+var isRunning = true
 
 // Set up the ON-OFF button
-const button = new Gpio(23, {
+const button = new Gpio(18, {
   mode: Gpio.INPUT,
   pullUpDown: Gpio.PUD_UP,
   alert: true
@@ -39,16 +39,22 @@ const button = new Gpio(23, {
  
  
 // Level must be stable for 10 ms before an alert event is emitted.
-button.glitchFilter(10000);
+button.glitchFilter(100);
  
 button.on('alert', (level, tick) => {
     console.log("IS RUNNING : " + isRunning)
     if (level === 0) {
         isRunning = !isRunning
+        startRunLoop()
     }
 });
 
+startRunLoop()
+
 function startRunLoop(){
+    
+    console.log("Trying to start run loop : isRunning : " + isRunning)
+
     if (isRunning == true) {
         moveLimbsToOriginalPosition()
             .then((success) => {
