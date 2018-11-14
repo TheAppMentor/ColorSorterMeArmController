@@ -28,7 +28,7 @@ var armRotateServoPos = armFullRotateRight
 var armExtendRetractServoPos = armFullRetract
 var armLiftLowerServoPos = armFullLower 
 
-var isRunning = false; 
+var isRunning = true; 
 
 // Set up the ON-OFF button
 const button = new Gpio(21, {
