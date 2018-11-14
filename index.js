@@ -1,6 +1,7 @@
 var socket = require('socket.io-client')('https://light-switch-socket-server.herokuapp.com/');
 const Gpio = require('pigpio').Gpio;
 const Promise = require('bluebird')
+var GpioBut = require('onoff').Gpio; //include onoff to interact with the GPIO
 
 //const servoArmForBack = new Gpio(10, {mode: Gpio.OUTPUT});
 const servoJaw = new Gpio(10, {mode: Gpio.OUTPUT});
@@ -30,27 +31,16 @@ var armLiftLowerServoPos = armFullLower
 
 var isRunning = true; 
 
-// Set up the ON-OFF button
-const button = new Gpio(21, {
-  mode: Gpio.INPUT,
-  pullUpDown: Gpio.PUD_UP,
-  alert: true
-});
+var pushButton = new GpioBut(21, 'in', 'both'); //use GPIO pin 17 as input, and 'both' button presses, and releases should be handled
 
-// Level must be stable for 10 ms before an alert event is emitted.
-button.glitchFilter(10000);
-
-
-// Level must be stable for 10 ms before an alert event is emitted.
-button.glitchFilter(10000);
-
-console.log("button value is button :  " + button  + isRunning) 
-
-button.on('alert', (level, tick) => {
-    console.log("IS RUNNING : " + isRunning)
-    if (level === 0) {
-        isRunning = !isRunning
-    }
+pushButton.watch(function (err, value) { //Watch for hardware interrupts on pushButton GPIO, specify callback function
+  if (err) { //if an error
+    console.error('There was an error', err); //output error message to console
+  return;
+  }
+    console.log("GOT AN INPUT >> FROM THE SWITCH")
+    isRunning = !isRunning
+    //LED.writeSync(value); //turn LED on or off depending on the button state (0 or 1)
 });
 
 startRunLoop()
